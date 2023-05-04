@@ -1,0 +1,15 @@
+## step 
+install pre require dependecy for project
+node js  above or equal to 14 version
+posgresql
+angualr cli
+nx workspace  = > ```npm install -g nx```
+
+## step1 
+get Repos from following URL 
+https://github.com/kelp-fvtpl/kelp-app
+
+## step2
+use following command to install all npm package 
+```npm install```
+
