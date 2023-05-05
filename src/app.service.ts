@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { User } from './users/user.entity';
+import { UserDto } from './users/user.dto';
 
 
 @Injectable()
@@ -7,11 +8,9 @@ export class AppService {
   constructor(@Inject('USER_REPOSITORY') private readonly userRepository: typeof User) {
 
   }
-  getHello(): string {
-    return 'Hello World!';
-  }
-  async create(user: any): Promise<User> {
-    return await this.userRepository.create<any>(user);
+
+  async create(user: UserDto): Promise<User> {
+    return await this.userRepository.create<User>(user);
   }
   async findAll(): Promise<any[]> {
     let data = await this.userRepository.findAll<any>();
