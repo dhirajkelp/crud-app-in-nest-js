@@ -1,16 +1,21 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { User } from './users/user.entity';
-import { UserDto } from './users/user.dto';
+import { Users } from './users/users.entity';
+import { UsersDto } from './users/users.dto';
+import { UserInfosDto } from './users/userInfos.dto';
+import { UserInfos } from './users/userInfos.entity';
 
 
 @Injectable()
 export class AppService {
-  constructor(@Inject('USER_REPOSITORY') private readonly userRepository: typeof User) {
+  constructor(
+    @Inject('USER_REPOSITORY') private readonly userRepository: typeof Users,
+    @Inject('USERINFO_REPOSITORY') private readonly userInfoRepository: typeof UserInfos,
+  ) {
 
   }
 
-  async create(user: UserDto): Promise<User> {
-    return await this.userRepository.create<User>(user);
+  async create(user: UsersDto): Promise<Users> {
+    return await this.userRepository.create<Users>(user);
   }
   async findAll(): Promise<any[]> {
     let data = await this.userRepository.findAll<any>();
@@ -37,6 +42,28 @@ export class AppService {
       }
     });
     return data;
+  }
+
+  async createUserInfo(userinfo: UserInfosDto): Promise<UserInfos> {
+    return await this.userInfoRepository.create<UserInfos>(userinfo);
+  }
+
+  async finduserinfo(id: string): Promise<any> {
+
+    // let data = await this.userInfoRepository.findOne({
+    //   where:{
+    //     id:1
+    //   },
+    //   include:[{
+    //     model:User,
+    //     attributes:['name'],
+    //     where:{
+    //       userId:id
+    //     }
+    //   }]
+    // })
+    // return data;
+
   }
 
 

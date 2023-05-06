@@ -1,7 +1,8 @@
 import { Controller, Get, Res, Req, Post, Put, Delete, Body, UseGuards, Param } from '@nestjs/common';
 import { Request, response } from 'express';
 import { AppService } from './app.service';
-import { UserDto } from './users/user.dto';
+import { UsersDto } from './users/users.dto';
+import { UserInfosDto } from './users/userInfos.dto';
 import { UsersGuard } from './users/users.guard';
 import { Users } from './users/users.interface'
 
@@ -11,9 +12,9 @@ export class AppController {
   constructor(private readonly appService: AppService) { }
 
   @Post('create')
-  async createuser(@Body() user: UserDto) {
+  async createuser(@Body() user: UsersDto) {
     return await this.appService.create(user);
-}
+  }
 
 
   @Get('fetchusers')
@@ -23,25 +24,35 @@ export class AppController {
   }
 
   @Get('userdetails/:id')
-  async userDetails(@Param('id') id :string, @Res() response): Promise<any> {
+  async userDetails(@Param('id') id: string, @Res() response): Promise<any> {
     return response.status(200).send(await this.appService.findoneuser(id));
   }
 
 
   @Put('update/:id')
-  async pdateUser(@Body() body: UserDto,@Param('id') id :string, @Res() response): Promise<any> {
+  async pdateUser(@Body() body: UsersDto, @Param('id') id: string, @Res() response): Promise<any> {
     return response.status(201).send(await this.appService.updateuser(body, id));
   }
 
 
   @Delete('deleteuser/:id')
-  async deleteUser(@Param('id') id :string, @Res() response): Promise<any> {
+  async deleteUser(@Param('id') id: string, @Res() response): Promise<any> {
     let deletrecord = await this.appService.deleteUser(id);
-    if(deletrecord){
+    if (deletrecord) {
       return response.status(201).json("record deleted successfully");
-    }else{
+    } else {
       return response.status(201).json("error occur while delete record");
     }
+  }
+
+  @Post('createuserinfo')
+  async creteUserInfo(@Body() user: UserInfosDto) {
+    return await this.appService.createUserInfo(user);
+  }
+
+  @Get('fetchuserinfo/:id')
+  async findUserinfo(@Param('id') id: string, @Res() response): Promise<any> {
+    return response.status(200).send(await this.appService.finduserinfo(id));
   }
 
 

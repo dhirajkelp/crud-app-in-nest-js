@@ -1,7 +1,13 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, HasOne } from 'sequelize-typescript';
+import { UserInfos } from './userInfos.entity';
 
-@Table
-export class User extends Model<User> {
+@Table({
+    tableName: 'users',
+    schema: 'public',
+    freezeTableName: true,
+    timestamps: true,
+  })
+export class Users extends Model<Users> {
     @Column({
         type: DataType.STRING,
         allowNull: false,
@@ -20,4 +26,5 @@ export class User extends Model<User> {
         allowNull: false,
     })
     password: string;
+
 }

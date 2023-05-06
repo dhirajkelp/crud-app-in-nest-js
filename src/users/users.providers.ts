@@ -1,6 +1,6 @@
-import { User } from './user.entity';
+import { Users } from './users.entity';
 
 export const usersProviders = [{
     provide: 'USER_REPOSITORY',
-    useValue: User,
+    useValue: Users,
 }];
