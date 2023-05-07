@@ -3,7 +3,6 @@ import { Users } from './users.entity';
 
 @Table({
     tableName: 'user_infos',
-    schema: 'public',
     freezeTableName: true,
     timestamps: true,
   })
