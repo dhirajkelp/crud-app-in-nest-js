@@ -8,7 +8,9 @@ import { Users } from './users.entity';
   })
 export class UserInfos extends Model<UserInfos> {
 
+
     @Column({
+        field:'user_id',
         type: DataType.INTEGER,
         allowNull: false,
     })
