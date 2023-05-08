@@ -24,21 +24,21 @@ export class AppService {
   async findoneuser(id: string): Promise<any[]> {
     let data = await this.userRepository.findOne<any>({
       where: {
-        id: id
+        userId: id
       }
     });
     return data;
   }
 
   async updateuser(body: any, id: string): Promise<any[]> {
-    let data = await this.userRepository.update({ ...body }, { where: { id: id }, returning: true });
+    let data = await this.userRepository.update({ ...body }, { where: { userId: id }, returning: true });
     return data;
   }
 
   async deleteUser(id: string): Promise<any> {
     let data = await this.userRepository.destroy<any>({
       where: {
-        id: id
+        userId: id
       }
     });
     return data;
@@ -50,19 +50,16 @@ export class AppService {
 
   async finduserinfo(id: string): Promise<any> {
 
-    // let data = await this.userInfoRepository.findOne({
-    //   where:{
-    //     id:1
-    //   },
-    //   include:[{
-    //     model:User,
-    //     attributes:['name'],
-    //     where:{
-    //       userId:id
-    //     }
-    //   }]
-    // })
-    // return data;
+    let data = await this.userInfoRepository.findAll({
+      include:[{
+        model:Users,
+        attributes:['name'],
+        where:{
+          userId:id
+        }
+      }]
+    })
+    return data;
 
   }
 

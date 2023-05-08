@@ -8,13 +8,29 @@ import { Users } from './users.entity';
   })
 export class UserInfos extends Model<UserInfos> {
 
+    @Column({
+        field: 'user_infos_id',
+        allowNull: false,
+        type: DataType.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      })
+      userInfosId: number;
 
+    @ForeignKey(()=>Users)
     @Column({
         field:'user_id',
         type: DataType.INTEGER,
         allowNull: false,
+        references: {
+            model: 'users',
+            key: 'user_id',
+          }
     })
     userId: number;
+
+    @BelongsTo(()=> Users, {as:'users'})
+    users:Users
 
     @Column({
         type: DataType.INTEGER,

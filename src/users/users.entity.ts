@@ -7,6 +7,16 @@ import { UserInfos } from './userInfos.entity';
     timestamps: true,
   })
 export class Users extends Model<Users> {
+
+    @Column({
+        field: 'user_id',
+        allowNull: false,
+        type: DataType.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      })
+      userId: number;
+
     @Column({
         type: DataType.STRING,
         allowNull: false,
@@ -25,5 +35,11 @@ export class Users extends Model<Users> {
         allowNull: false,
     })
     password: string;
+
+
+    @HasOne(()=> UserInfos, {as:'user_infos'})
+    users:UserInfos
+   
+
 
 }

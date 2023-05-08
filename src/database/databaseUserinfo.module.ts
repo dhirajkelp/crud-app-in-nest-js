@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
-import { databaseUserinfo } from './databaseUserinfo.providers';
-
+import { SequelizeModule } from '@nestjs/sequelize';
+import { UserInfos } from 'src/users/userInfos.entity';
 
 @Module({
-    providers: [...databaseUserinfo],
-    exports: [...databaseUserinfo],
+    imports:[SequelizeModule.forFeature([UserInfos])],
+    providers: [],
+    exports: [],
 })
 export class DatabaseUserInfoModule {}
