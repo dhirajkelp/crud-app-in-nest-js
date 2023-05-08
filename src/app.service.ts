@@ -17,7 +17,7 @@ export class AppService {
   async create(user: UsersDto): Promise<Users> {
     return await this.userRepository.create<Users>(user);
   }
-  async findAll(): Promise<any[]> {
+  async findAll(): Promise<UsersDto[]> {
     let data = await this.userRepository.findAll<any>();
     return data;
   }

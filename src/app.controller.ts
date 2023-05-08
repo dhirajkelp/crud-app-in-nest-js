@@ -5,6 +5,7 @@ import { UsersDto } from './users/users.dto';
 import { UserInfosDto } from './users/userInfos.dto';
 import { UsersGuard } from './users/users.guard';
 import { Users } from './users/users.interface'
+import { ApiBody, ApiResponse } from '@nestjs/swagger';
 
 @Controller()
 @UseGuards(UsersGuard)
@@ -12,18 +13,21 @@ export class AppController {
   constructor(private readonly appService: AppService) { }
 
   @Post('create')
+  @ApiResponse({type:UsersDto})
   async createuser(@Body() user: UsersDto) {
     return await this.appService.create(user);
   }
 
 
   @Get('fetchusers')
-  async fetchUsers(@Req() request: Request, @Res() response: any): Promise<any> {
+  @ApiResponse({type:UsersDto})
+  async fetchUsers(@Req() request: Request, @Res() response: any): Promise<UsersDto> {
     let data = await this.appService.findAll();
     return response.status(200).json(data);
   }
 
   @Get('userdetails/:id')
+  @ApiResponse({type:UsersDto})
   async userDetails(@Param('id') id: string, @Res() response): Promise<any> {
     return response.status(200).send(await this.appService.findoneuser(id));
   }
@@ -46,6 +50,7 @@ export class AppController {
   }
 
   @Post('createuserinfo')
+  @ApiResponse({type:UserInfosDto})
   async creteUserInfo(@Body() user: UserInfosDto) {
     return await this.appService.createUserInfo(user);
   }
